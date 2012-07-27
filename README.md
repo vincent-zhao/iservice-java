@@ -133,6 +133,7 @@ Constants.DUMP_ERROR_EVENT     //数据本地化发生错误
 
 # 关于iservice-java
 
+* iservice-java依赖zk的java开发包，需要导入。
 * iservice-java包中有全面的单元测试（test目录下），测试的配置在test/conf下。
 * iservice-java包中提供了2个demo（配置文件在demo/conf下），模拟客户端使用iservice-java和zk树定时修改，以此可以查看iservice-java是如何工作的。
 * iservice-java还在持续开发中，如果有问题和建议可以联系我：yixuan.zzq@taobao.com
