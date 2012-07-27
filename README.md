@@ -58,7 +58,44 @@ iservice是高可靠的配置中心，在面对一些异常情况的时候（例
 
   1. 如果断网时间较短，在设置的zk的session timeout时间以内，一切恢复正常。
 
-  2. 如果断网时间超过设置的zk的seesion timeout，则无法再连接上zk。iservice-java会触发一个“过期”事件， 用户需要监听在这个事件上。
+  2. 如果断网时间超过设置的zk的seesion timeout，则无法再连接上zk，可以一直使用过期数据进行操作。iservice-java会触发一个“过期”事件， 用户需要监听在这个事件上。
+
+
+# iservice-java api说明
+
+* 初始化Iservice对象：
+
+```java
+//创建IService对象，参数分别是：zk集群地址，根路径，用户名，密码，本地缓存路径
+IService iservice = new IService("127.0.0.1:2181", "/", "", "", "./tmp");
+
+/*
+  这里的MyHandler是Handler的一个实现，Handler是我定义的一个抽象类。
+  Handler的实现类用来注册在具体事件上，当发生某些事件时会回调Handler中的callback方法，下面会具体介绍。
+*/
+MyHandler mh = new MyHandler();
+
+//setEventHandle方法用于在特有事件上设置监听对象，下面例子表示，如果zk连接成功，调用mh的callback方法。
+iservice.setEventHandle(Constants.CONNECT_EVENT, mh);
+
+//这步是很重要的，表示启动iservice。这个方法最好是在所有setEventHandle之后
+iservice.init();
+```
+
+* Handler：
+
+```java
+//Handler定义
+  public abstract class Handler {
+    /**
+     * something not abstract
+     */
+     
+     //@param {Object} content callback时候回调的内容，不一样的callback回调内容不一样
+     public abstract void callback(Object content);
+     
+  }
+```
 
 
 
