@@ -81,17 +81,14 @@ iservice.setEventHandle(Constants.CONNECT_EVENT, mh);
 //这步是很重要的，表示启动iservice。这个方法最好是在所有setEventHandle之后
 iservice.init();
 
+//特有事件包括：
+Constants.CONNECT_EVENT         //zk连接成功触发的事件
+Constants.DISCONNECT_EVENT      //zk是去连接触发的事件
+Constants.EXPIRED_EVENT         //zk session过期触发的事件
+Constants.ZK_PATH_ERROR_EVENT   //zk 根目录找不到触发的事件
 ```
 
-特有事件包括：
 
-Constants.CONNECT_EVENT         //zk连接成功触发的事件
-
-Constants.DISCONNECT_EVENT      //zk是去连接触发的事件
-
-Constants.EXPIRED_EVENT         //zk session过期触发的事件
-
-Constants.ZK_PATH_ERROR_EVENT   //zk 根目录找不到触发的事件
 
 * Handler：
 
@@ -120,19 +117,16 @@ config.setEventHandle(Constants.DATA_CHANGE_EVENT, new SomeHandle());
 /**
  * 通过config的get方法可以获取app1节点下的某个配置信息。get的返回是一个Data接口的实现类。
  * 下列代码中的DefaultData是默认返回数据格式，其不对zk取出的数据做任何处理，调用其get方法直接返回字符串。
+ * 更多的数据类型等待开发，例如解析ini类型文件，json类型文件等
  */
 DefaultData data = (DefaultData)config.get("key1");
 
-```
+//打印配置信息内容
+System.out.println(data.getData());
 
-事件包括：
-
+//事件包括：
 Constants.GET_DATA_ERROR_EVENT //获取数据出现错误
-
 Constants.DATA_CHANGE_EVENT    //数据发生变化（触发时，callback的参数为String类型，表示变化后的值）
-
 Constants.DUMP_FAIL_EVENT      //数据本地化失败（因为本地文件被人工修改过）
-
 Constants.DUMP_ERROR_EVENT     //数据本地化发生错误
-
-
+```
