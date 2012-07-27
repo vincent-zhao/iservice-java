@@ -130,3 +130,9 @@ Constants.DATA_CHANGE_EVENT    //数据发生变化（触发时，callback的参
 Constants.DUMP_FAIL_EVENT      //数据本地化失败（因为本地文件被人工修改过）
 Constants.DUMP_ERROR_EVENT     //数据本地化发生错误
 ```
+
+# 关于iservice-java
+
+* iservice-java包中有全面的单元测试（test目录下），测试的配置在test/conf下。
+* iservice-java包中提供了2个demo，模拟客户端使用iservice-java和zk树定时修改，以此可以查看iservice-java是如何工作的。
+* 
